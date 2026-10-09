@@ -9,8 +9,13 @@ stages:
       size: 333757
     - path: src/data/data_split.py
       hash: md5
-      md5: 60a6150b8562df40ef4a5234069bfa29
-      size: 919
+      md5: 664b2a9d38d40082f72eee7c2d51c0f8
+      size: 1051
+    params:
+      params.yaml:
+        data_split:
+          test_size: 0.2
+          random_state: 42
     outs:
     - path: data/processed_data/X_test.csv
       hash: md5
@@ -65,8 +70,23 @@ stages:
       size: 25951
     - path: src/models/grid_search.py
       hash: md5
-      md5: 37aa2f6671395b3ed9ac0254340d01bc
-      size: 1009
+      md5: ed86377fec1bed1c037bdbe7e6effc14
+      size: 995
+    params:
+      params.yaml:
+        grid_search:
+          cv: 3
+          param_grid:
+            n_estimators:
+            - 100
+            - 200
+            learning_rate:
+            - 0.05
+            - 0.1
+            max_depth:
+            - 2
+            - 3
+            - 4
     outs:
     - path: models/best_params.pkl
       hash: md5
