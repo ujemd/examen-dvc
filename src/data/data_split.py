@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import yaml
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
@@ -17,8 +17,11 @@ def main():
     X = df.iloc[:, :-1]
     y = df.iloc[:, -1]
 
+    with open("params.yaml") as f:
+        params = yaml.safe_load(f)["data_split"]
+
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
+        X, y, test_size=params["test_size"], random_state=params["random_state"]
     )
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
